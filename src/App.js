@@ -1,4 +1,5 @@
 import Expense from "./components/Expense/Expense";
+import InfoGather from "./components/InfoGather/InfoGather";
 
 function App() {
   const expenses = [
@@ -29,7 +30,7 @@ function App() {
   ];
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <InfoGather />
       <Expense expenses={expenses} />
     </div>
   );
