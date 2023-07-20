@@ -1,10 +1,18 @@
+import { useState } from "react";
 import "./Expense.css";
 import Card from "../UI/Card";
 import ExpenseItem from "./ExpenseItem";
 import ExpensesFilter from "../ExpensesFilter/ExpensesFilter";
 
 function Expense({ expenses }) {
-  const getYear = (selectedYear) => {
+  const [filterYear, setFilterYear] = useState("2023");
+  const _filterExpense = expenses.filter((expense) => {
+    if (filterYear === "all") return true;
+    return expense.date.getFullYear().toString() === filterYear;
+  });
+  const onSetFilterYear = (selectedYear) => {
+    setFilterYear(selectedYear);
+
     console.log(selectedYear);
   };
   return (
