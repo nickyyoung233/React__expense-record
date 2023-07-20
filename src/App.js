@@ -1,8 +1,9 @@
 import Expense from "./components/Expense/Expense";
 import InfoGather from "./components/InfoGather/InfoGather";
+import { useState } from "react";
 
 function App() {
-  const expenses = [
+  const _expenses = [
     {
       id: "e1",
       title: "演唱会",
@@ -28,9 +29,16 @@ function App() {
       date: new Date(2023, 5, 20),
     },
   ];
+  const [expenses, setExpenses] = useState(_expenses);
+  const getExpenseDate = (data) => {
+    setExpenses((prevalue) => {
+      console.log(prevalue);
+      return [data, ...prevalue];
+    });
+  };
   return (
     <div>
-      <InfoGather />
+      <InfoGather onGetExpenseDate={getExpenseDate} />
       <Expense expenses={expenses} />
     </div>
   );

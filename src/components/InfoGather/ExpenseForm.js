@@ -1,33 +1,36 @@
 import "./ExpenseForm.css";
 import { useState } from "react";
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onGetExpenseDate }) => {
   const [_inputs, setInputs] = useState({
-    _title: "",
-    _cost: "",
-    _date: "",
+    title: "",
+    amount: "",
+    date: "",
   });
   const inputsChangeHandler = (_type, val) => {
     if (_type === "title") {
       setInputs((prevalue) => {
-        return { ...prevalue, _title: val.target.value };
+        return { ...prevalue, title: val.target.value };
       });
     }
     if (_type === "cost") {
       setInputs((prevalue) => {
-        return { ...prevalue, _cost: val.target.value };
+        return { ...prevalue, amount: val.target.value };
       });
     }
     if (_type === "date") {
       setInputs((prevalue) => {
-        return { ...prevalue, _date: val.target.value };
+        return { ...prevalue, date: val.target.value };
       });
     }
   };
   const submitHandler = (_event) => {
     _event.preventDefault();
-    const _final = { ..._inputs, _date: new Date(_inputs._date) };
-    console.log(_final);
+    const _final = { ..._inputs, date: new Date(_inputs.date) };
+    onGetExpenseDate(_final);
+    setInputs(() => {
+      return { title: "", amount: "", date: "" };
+    });
   };
   return (
     <form onSubmit={submitHandler}>
@@ -36,6 +39,7 @@ const ExpenseForm = () => {
           <label>事件</label>
           <input
             type="text"
+            value={_inputs.title}
             onChange={(_e) => inputsChangeHandler("title", _e)}
           />
         </div>
@@ -44,6 +48,7 @@ const ExpenseForm = () => {
           {/* <input type="number" min="0.01" step="0.01" /> */}
           <input
             type="text"
+            value={_inputs.amount}
             onChange={(_e) => inputsChangeHandler("cost", _e)}
           />
         </div>
@@ -53,6 +58,7 @@ const ExpenseForm = () => {
             type="date"
             min="2022-01-01"
             max="2024-12-31"
+            value={_inputs.date}
             onChange={(_e) => inputsChangeHandler("date", _e)}
           />
         </div>
