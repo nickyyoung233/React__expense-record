@@ -1,7 +1,7 @@
 import "./ExpenseForm.css";
 import { useState } from "react";
 
-const ExpenseForm = ({ onGetExpenseDate }) => {
+const ExpenseForm = ({ onGetExpenseDate, onSetEditing }) => {
   const [_inputs, setInputs] = useState({
     title: "",
     amount: "",
@@ -33,21 +33,7 @@ const ExpenseForm = ({ onGetExpenseDate }) => {
     });
   };
 
-  const showDisplayHandler = () => {
-    setInfoPlant(staticInfoPlant);
-  };
-  const hiddenInfoHandler = () => {
-    setInfoPlant(
-      <form>
-        <div>
-          <button type="button" onClick={showDisplayHandler}>
-            添加新账单
-          </button>
-        </div>
-      </form>
-    );
-  };
-  const staticInfoPlant = (
+  return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
@@ -80,13 +66,11 @@ const ExpenseForm = ({ onGetExpenseDate }) => {
       </div>
       <div className="new-expense__actions">
         <button type="submit">添加账单</button>
-        <button type="button" onClick={hiddenInfoHandler}>
+        <button type="button" onClick={onSetEditing}>
           取消
         </button>
       </div>
     </form>
   );
-  const [InfoPlant, setInfoPlant] = useState(staticInfoPlant);
-  return InfoPlant;
 };
 export default ExpenseForm;
