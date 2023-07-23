@@ -4,7 +4,7 @@ import { useState } from "react";
 const ExpenseForm = ({ onGetExpenseDate, onSetEditing }) => {
   const [_inputs, setInputs] = useState({
     title: "",
-    amount: "",
+    amount: 0,
     date: "",
   });
   const inputsChangeHandler = (_type, val) => {
@@ -15,7 +15,7 @@ const ExpenseForm = ({ onGetExpenseDate, onSetEditing }) => {
     }
     if (_type === "cost") {
       setInputs((prevalue) => {
-        return { ...prevalue, amount: val.target.value };
+        return { ...prevalue, amount: +val.target.value };
       });
     }
     if (_type === "date") {
@@ -29,7 +29,7 @@ const ExpenseForm = ({ onGetExpenseDate, onSetEditing }) => {
     const _final = { ..._inputs, date: new Date(_inputs.date) };
     onGetExpenseDate(_final);
     setInputs(() => {
-      return { title: "", amount: "", date: "" };
+      return { title: "", amount: 0, date: "" };
     });
   };
 
@@ -48,8 +48,9 @@ const ExpenseForm = ({ onGetExpenseDate, onSetEditing }) => {
           <label>花费</label>
           {/* <input type="number" min="0.01" step="0.01" /> */}
           <input
-            type="text"
+            type="number"
             value={_inputs.amount}
+            min="0"
             onChange={(_e) => inputsChangeHandler("cost", _e)}
           />
         </div>
