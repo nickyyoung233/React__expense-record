@@ -4,7 +4,7 @@ import { useState } from "react";
 const ExpenseForm = ({ onGetExpenseDate, onSetEditing }) => {
   const [_inputs, setInputs] = useState({
     title: "",
-    amount: 0,
+    amount: "",
     date: "",
   });
   const inputsChangeHandler = (_type, val) => {
@@ -37,8 +37,9 @@ const ExpenseForm = ({ onGetExpenseDate, onSetEditing }) => {
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
-          <label>事件</label>
+          <label htmlFor="title">事件</label>
           <input
+            id="title"
             type="text"
             value={_inputs.title}
             onChange={(_e) => inputsChangeHandler("title", _e)}
